@@ -32,8 +32,9 @@ curl -O https://raw.githubusercontent.com/selfhostit/should-we/main/docker-compo
 docker compose up -d
 ```
 
-If port 8091 is taken ("port is already allocated"), change `8091` in
-`docker-compose.yml` to a free port.
+If port 8091 is taken ("port is already allocated"), put a free port in a
+`.env` file next to `docker-compose.yml`, for example `SHOULD_WE_PORT=8095`,
+and your time zone too (`TZ=Europe/Athens`; the default is Europe/Brussels).
 
 Open http://127.0.0.1:8091, type what you're deciding and what matters,
 then tap **Share** and send the link. Everyone picks a name, taps how much
