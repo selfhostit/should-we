@@ -1,15 +1,17 @@
 # Paste this into Synology Container Manager > Project > Create, or run
 # `docker compose up -d` next to it on any home server.
 # Data lives in ./pb_data next to this file (/volume1/docker/should-we/pb_data on a Synology).
+# The port and time zone can also be set in a .env file next to this one:
+# SHOULD_WE_PORT=8091 and TZ=Europe/Brussels.
 services:
   should-we:
     image: ghcr.io/selfhostit/should-we:2
     container_name: should-we
     restart: always
     ports:
-      - "127.0.0.1:8091:8090" # only reachable through your reverse proxy
+      - "127.0.0.1:${SHOULD_WE_PORT:-8091}:8090" # only reachable through your reverse proxy
     volumes:
       - ./pb_data:/app/pb_data
     environment:
-      - TZ=Europe/Brussels
+      - TZ=${TZ:-Europe/Brussels}
     mem_limit: 128m
