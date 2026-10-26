@@ -27,10 +27,13 @@ Version 2 is a rebuild. The Python version is release
 On any machine with Docker (a NAS, a mini PC, your laptop):
 
 ```sh
-mkdir should-we && cd should-we
+mkdir -p should-we/pb_data && cd should-we
 curl -O https://raw.githubusercontent.com/selfhostit/should-we/main/docker-compose.yml
 docker compose up -d
 ```
+
+If port 8091 is taken ("port is already allocated"), change `8091` in
+`docker-compose.yml` to a free port.
 
 Open http://127.0.0.1:8091, type what you're deciding and what matters,
 then tap **Share** and send the link. Everyone picks a name, taps how much
