@@ -18,6 +18,10 @@
   let peeking = $state(false);
   let tab = $state<'rate' | 'results'>('rate');
   let copied = $state(false);
+  let justJoined = $state(false);
+  // shared links say who sent them (?from=<person id>); otherwise it's whoever started
+  const from = new URLSearchParams(window.location.search).get('from');
+  const inviter = $derived(data && (data.people.find((p) => p.id === from) ?? data.people[0])?.name);
 
   async function load() {
     try {
@@ -50,6 +54,7 @@
     setMe(id, m);
     me = m;
     peeking = false;
+    justJoined = true;
     tab = 'rate';
     load();
   }
@@ -69,10 +74,11 @@
   }
 
   async function share() {
-    const url = window.location.origin + `/d/${id}`;
+    const url = window.location.origin + `/d/${id}` + (me ? `?from=${me.id}` : '');
     if (navigator.share) {
       try {
-        await navigator.share({ title: data?.title, text: `Help decide: ${data?.title}`, url });
+        const text = me ? `${me.name} invited you to help decide: ${data?.title}` : `Help decide: ${data?.title}`;
+        await navigator.share({ title: data?.title, text, url });
         return;
       } catch {
         // cancelled or unsupported: fall back to copying
@@ -97,7 +103,7 @@
 {:else if !data}
   <main class="flex min-h-dvh items-center justify-center text-slate-500">{error || 'Loading…'}</main>
 {:else if !me && !peeking}
-  <Join decision={data} onjoined={joined} onpeek={() => ((peeking = true), (tab = 'results'))} />
+  <Join decision={data} inviter={inviter ?? null} onjoined={joined} onpeek={() => ((peeking = true), (tab = 'results'))} />
 {:else}
   <div class="mx-auto flex min-h-dvh max-w-md flex-col gap-4 px-4 pt-4 pb-10">
     <header class="flex items-start gap-3">
@@ -115,6 +121,13 @@
 
     {#if error}
       <div class="rounded-xl bg-amber-100 px-4 py-2 text-sm text-amber-900 dark:bg-amber-900/40 dark:text-amber-100">{error}</div>
+    {/if}
+
+    {#if justJoined && tab === 'rate'}
+      <div class="card border-brand-500 bg-brand-50 dark:bg-brand-700/20">
+        <p class="text-lg font-semibold">You're in, {me?.name}!</p>
+        <p class="text-base text-slate-600 dark:text-slate-300">Start with what matters to you, then rate the options below.</p>
+      </div>
     {/if}
 
     {#if me && data.people.length <= 1}

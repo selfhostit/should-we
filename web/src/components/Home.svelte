@@ -1,12 +1,13 @@
 <script lang="ts">
   import { api } from '../lib/api';
   import { go } from '../lib/route.svelte';
-  import { forget, recents, remember, setMe, takeTemplate } from '../lib/local';
+  import { forget, lastName, recents, remember, setMe, takeTemplate } from '../lib/local';
   import { EXAMPLES } from '../lib/words';
   import Points from './Points.svelte';
 
   const template = takeTemplate();
   let title = $state(template?.title ?? '');
+  let name = $state(template?.name ?? lastName());
   let points = $state<string[]>(template ? [...template.points] : []);
   let draft = $state('');
   let error = $state('');
@@ -30,14 +31,16 @@
     error = '';
     if (!title.trim()) return (error = 'Say what you are deciding.');
     if (points.length === 0) return (error = 'Add at least one thing that matters.');
+    if (!name.trim()) return (error = 'Enter your name, so the people you invite know who asked.');
     busy = true;
     try {
       const { id } = await api.create(title.trim(), points);
       remember({ id, title: title.trim() });
-      if (template?.name) {
-        // join as the same person, with the same priorities for the points that stayed
-        const me = await api.join(id, template.name);
-        setMe(id, me);
+      // you're the first person in, so the link says who invited them
+      const me = await api.join(id, name.trim());
+      setMe(id, me);
+      if (template?.weights) {
+        // the same priorities for the points that stayed
         const d = await api.get(id);
         const weights = Object.fromEntries(
           d.features.filter((f) => template.weights?.[f.label] !== undefined).map((f) => [f.key, template.weights![f.label]]),
@@ -68,7 +71,7 @@
     {#if template}
       <p class="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-700 dark:bg-brand-700/30 dark:text-brand-100">
         Copied from “{template.from}”. Change anything you like.
-        {#if template.name}You'll join as {template.name} with the same priorities.{/if}
+        {#if template.name}You keep the same priorities.{/if}
         Options and ratings start empty.
       </p>
     {:else}
@@ -88,6 +91,12 @@
       <span class="text-sm font-medium">What matters when choosing?</span>
       <Points bind:this={editor} bind:points bind:draft />
     </div>
+
+    <label class="flex flex-col gap-1">
+      <span class="text-sm font-medium">Your name</span>
+      <input bind:value={name} placeholder="e.g. Alice" maxlength="40" autocomplete="given-name" />
+      <span class="text-xs text-slate-500">Shown to the people you invite: “{name.trim() || 'Alice'} invited you to help decide”.</span>
+    </label>
 
     {#if error}<p class="text-sm text-red-600">{error}</p>{/if}
     <button class="btn-primary" disabled={busy}>{busy ? 'Creating…' : 'Create and get the link'}</button>
