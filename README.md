@@ -44,9 +44,10 @@ To let friends join from their phones anywhere, put it behind HTTPS (see
 
 ## How it works
 
-1. **Start a decision**: what you're deciding, and what matters (price,
-   location, …). Or pick an example.
-2. **Share the link.** Each person picks a name.
+1. **Start a decision**: what you're deciding, what matters (price,
+   location, …) and your name. Or pick an example.
+2. **Share the link.** People who open it see who invited them and what
+   they'll be asked to do, then pick a name.
 3. **Say what matters**: Don't care, A little, Important or Must-have, per
    point.
 4. **Add and rate options**, 0 (bad) to 5 (great) on each point.

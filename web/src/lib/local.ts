@@ -28,6 +28,12 @@ export function getMe(decision: string): Me | null {
 
 export function setMe(decision: string, me: Me) {
   write('should-we:me', { ...read<Record<string, Me>>('should-we:me', {}), [decision]: me });
+  write('should-we:name', me.name);
+}
+
+/** The name you last used, to fill in next time. */
+export function lastName(): string {
+  return read<string>('should-we:name', '');
 }
 
 export function recents(): Recent[] {

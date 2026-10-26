@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **A friendlier welcome for invited people.** Opening a shared link shows
+  "Alice invited you to help decide" with the question in large type, then
+  a short "here's what you'll do" step and the name step, one screen at a
+  time.
+- Starting a decision asks for your name and joins you right away, so the
+  invite can say who it's from. Shared links remember who sent them
+  (`?from=`), so a link Bob passes on says "Bob invited you".
+
 - The project moved to the [selfhostit](https://github.com/selfhostit)
   organization. New images are published as `ghcr.io/selfhostit/should-we`;
   update the `image:` line in your `docker-compose.yml`.
