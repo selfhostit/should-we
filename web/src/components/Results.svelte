@@ -24,7 +24,7 @@
             <span class="block font-semibold break-words">{o.name}</span>
             <span class="block text-xs text-slate-500">
               {#if r.rated_by}
-                Rated by {r.rated_by} of {decision.people.length}{#if r.split} · 🤔 opinions split{/if}
+                Rated by {r.rated_by} of {decision.people.length}{#if r.split}{' · 🤔 opinions split'}{/if}
               {:else}
                 Nobody rated this yet
               {/if}
