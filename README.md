@@ -6,6 +6,8 @@
 
 <p align="center"><a href="https://buymeacoffee.com/kalfasyan"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee"></a></p>
 
+<p align="center"><img src="docs/screenshots/tour.png" alt="should-we on a phone: start a decision, share the link, say what matters, rate the options, see one ranking"></p>
+
 Rank options (homes, cars, holiday spots, anything) when several people
 need to agree. Everyone says how much each point matters to them and rates
 every option. should-we weights each person's ratings by their own
