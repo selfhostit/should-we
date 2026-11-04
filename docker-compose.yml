@@ -14,4 +14,9 @@ services:
       - ./pb_data:/app/pb_data
     environment:
       - TZ=${TZ:-Europe/Brussels}
+    # Runs as root inside the container, but with no extra privileges except
+    # writing to a data folder that belongs to another user.
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    cap_add: [DAC_OVERRIDE, FOWNER]
     mem_limit: 128m
