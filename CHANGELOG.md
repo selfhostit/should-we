@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `:2` and `:latest` now only move on a release; `main` publishes `:edge`. Every
+  published image has a signed provenance attestation (`gh attestation verify`).
 - The web app now sends a Content Security Policy, so only its own scripts run
   in the page and it only talks to its own server.
 - **A friendlier welcome for invited people.** Opening a shared link shows

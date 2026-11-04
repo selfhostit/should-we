@@ -99,7 +99,10 @@ and push straight to the NAS:
 scripts/deploy-to-nas.sh you@your-nas-address
 ```
 
-Images: `:2` follows the latest 2.x, `:2.1.0` is that exact release.
+Images: `:2` follows the newest 2.x release, `:2.1.0` is that exact release and `:edge`
+follows `main`. Every image has a signed attestation of the workflow and commit that built
+it; check one with the [GitHub CLI](https://cli.github.com):
+`gh attestation verify oci://ghcr.io/selfhostit/should-we:2 --repo selfhostit/should-we`.
 
 ### Backups
 
@@ -127,7 +130,7 @@ Tests: `cd backend && go test ./...` and `cd web && npm test && npm run check`.
 
 Bump `version` in `web/package.json`, add a CHANGELOG entry, merge, then
 publish a GitHub release tagged `vX.Y.Z`. CI publishes the matching image
-tags.
+tags (and moves `:2` and `:latest`), and attests them.
 
 ## How it is built
 
@@ -147,7 +150,8 @@ tags.
 - **Sign-ins and new decisions are rate limited,** and the web app sends a Content Security Policy
   (`backend/app/headers.go`).
 - **Versioned releases** with a [changelog](CHANGELOG.md); the compose file follows the `2`
-  major version, so an update never jumps to a breaking one.
+  major version, which only moves on a release, so an update never jumps to a breaking one or
+  to unreleased work. Every image has a signed attestation of the commit that built it.
 - **Tested on every change** in [CI](.github/workflows/ci.yml), with Actions pinned to
   commit hashes and every push scanned for committed secrets (gitleaks).
 - **No analytics or tracking.** The data stays in `pb_data` on your machine.
