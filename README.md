@@ -139,6 +139,23 @@ tags.
 | Web app | Svelte 5 + Vite + Tailwind (`web/`), installable PWA |
 | Packaging | One Docker image (`Dockerfile`), published to `ghcr.io/selfhostit/should-we` by GitHub Actions |
 
+## Security and maintenance
+
+- **Not on the internet:** the container listens on `127.0.0.1` only; reach it through
+  Tailscale or your own reverse proxy with HTTPS.
+- **Locked-down container:** it drops every Linux capability and can't gain new ones.
+- **Sign-ins and new decisions are rate limited,** and the web app sends a Content Security Policy
+  (`backend/app/headers.go`).
+- **Versioned releases** with a [changelog](CHANGELOG.md); the compose file follows the `2`
+  major version, so an update never jumps to a breaking one.
+- **Tested on every change** in [CI](.github/workflows/ci.yml), with Actions pinned to
+  commit hashes and every push scanned for committed secrets (gitleaks).
+- **No analytics or tracking.** The data stays in `pb_data` on your machine.
+
+Found a security problem? Please write to kalfasyan@pm.me rather than opening an issue
+([security policy](https://github.com/selfhostit/.github/blob/main/SECURITY.md)). [Security and privacy](https://github.com/selfhostit/docs/blob/main/security.md) covers every selfhostit app:
+what protects an install, what you are trusting and what is not done yet.
+
 ## Support
 
 If should-we helps you decide, you can
