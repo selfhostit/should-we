@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- The web app now sends a Content Security Policy, so only its own scripts run
+  in the page and it only talks to its own server.
 - **A friendlier welcome for invited people.** Opening a shared link shows
   "Alice invited you to help decide" with the question in large type, then
   a short "here's what you'll do" step and the name step, one screen at a
