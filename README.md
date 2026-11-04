@@ -99,7 +99,10 @@ and push straight to the NAS:
 scripts/deploy-to-nas.sh you@your-nas-address
 ```
 
-Images: `:2` follows the latest 2.x, `:2.1.0` is that exact release.
+Images: `:2` follows the newest 2.x release, `:2.1.0` is that exact release and `:edge`
+follows `main`. Every image has a signed attestation of the workflow and commit that built
+it; check one with the [GitHub CLI](https://cli.github.com):
+`gh attestation verify oci://ghcr.io/selfhostit/should-we:2 --repo selfhostit/should-we`.
 
 ### Backups
 
@@ -127,7 +130,7 @@ Tests: `cd backend && go test ./...` and `cd web && npm test && npm run check`.
 
 Bump `version` in `web/package.json`, add a CHANGELOG entry, merge, then
 publish a GitHub release tagged `vX.Y.Z`. CI publishes the matching image
-tags.
+tags (and moves `:2` and `:latest`), and attests them.
 
 ## How it is built
 
@@ -138,6 +141,24 @@ tags.
 | API | `backend/app/routes.go`: a decision's id is its share link; your browser keeps a token proving which person you are |
 | Web app | Svelte 5 + Vite + Tailwind (`web/`), installable PWA |
 | Packaging | One Docker image (`Dockerfile`), published to `ghcr.io/selfhostit/should-we` by GitHub Actions |
+
+## Security and maintenance
+
+- **Not on the internet:** the container listens on `127.0.0.1` only; reach it through
+  Tailscale or your own reverse proxy with HTTPS.
+- **Locked-down container:** it drops every Linux capability and can't gain new ones.
+- **Sign-ins and new decisions are rate limited,** and the web app sends a Content Security Policy
+  (`backend/app/headers.go`).
+- **Versioned releases** with a [changelog](CHANGELOG.md); the compose file follows the `2`
+  major version, which only moves on a release, so an update never jumps to a breaking one or
+  to unreleased work. Every image has a signed attestation of the commit that built it.
+- **Tested on every change** in [CI](.github/workflows/ci.yml), with Actions pinned to
+  commit hashes and every push scanned for committed secrets (gitleaks).
+- **No analytics or tracking.** The data stays in `pb_data` on your machine.
+
+Found a security problem? Please write to kalfasyan@pm.me rather than opening an issue
+([security policy](https://github.com/selfhostit/.github/blob/main/SECURITY.md)). [Security and privacy](https://github.com/selfhostit/docs/blob/main/security.md) covers every selfhostit app:
+what protects an install, what you are trusting and what is not done yet.
 
 ## Support
 
