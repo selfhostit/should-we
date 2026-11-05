@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Runs as a normal user (1000:1000, or `PUID`/`PGID`): it starts as root only to give the
+  data folder to that user, then switches. An install that keeps an older compose file keeps
+  running as root and says so in its log; the installer brings the new compose file.
+- The container's filesystem is read-only apart from `pb_data` and `/tmp`.
+- SECURITY.md: how to report a problem privately, and how quickly fixes ship.
+- Security scans on every pull request and every Monday: CodeQL, Grype (dependencies and the
+  released image), dependency review.
+
+## 2.2.0 (2026-11-04)
+
 - `:2` and `:latest` now only move on a release; `main` publishes `:edge`. Every
   published image has a signed provenance attestation (`gh attestation verify`).
 - The web app now sends a Content Security Policy, so only its own scripts run

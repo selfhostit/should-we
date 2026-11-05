@@ -14,9 +14,14 @@ services:
       - ./pb_data:/app/pb_data
     environment:
       - TZ=${TZ:-Europe/Brussels}
-    # Runs as root inside the container, but with no extra privileges except
-    # writing to a data folder that belongs to another user.
+      - PUID=${PUID:-1000} # the user (and group) should-we runs as, who owns ./pb_data
+      - PGID=${PGID:-1000}
+    # should-we starts as root only to give ./pb_data to PUID:PGID, then runs as that user;
+    # switching drops these capabilities again. It can't gain new privileges, and nothing
+    # in the container can be changed apart from the data folder and /tmp.
     security_opt: [no-new-privileges:true]
     cap_drop: [ALL]
-    cap_add: [DAC_OVERRIDE, FOWNER]
+    cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]
+    read_only: true
+    tmpfs: [/tmp]
     mem_limit: 128m

@@ -3,6 +3,8 @@ name: gitleaks
 on:
   push:
   pull_request:
+  schedule:
+    - cron: '41 5 * * 1'
 
 permissions:
   contents: read
