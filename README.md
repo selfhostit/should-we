@@ -106,10 +106,13 @@ it; check one with the [GitHub CLI](https://cli.github.com):
 
 ### Backups
 
-Copy the `pb_data` folder (on a Synology: add `/volume1/docker/should-we`
-to a Hyper Backup task). Optional: create an admin with
+should-we makes a backup every night into `pb_data/backups` and keeps the last 7. They
+stay on the same disk, so also copy the `pb_data` folder somewhere else (on a Synology: add
+`/volume1/docker/should-we` to a Hyper Backup task). To restore one, see
+[Updates and backups](https://github.com/selfhostit/docs/blob/main/updates-and-backups.md#restore-a-backup).
+Optional: create an admin with
 `docker exec -it should-we /app/should-we superuser upsert you@example.com 'password' --dir=/app/pb_data`
-to browse the data at `/_/` and schedule PocketBase's own backups.
+to browse the data at `/_/` and change the backup schedule.
 
 ## Run it locally
 
