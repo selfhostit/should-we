@@ -146,7 +146,9 @@ tags (and moves `:2` and `:latest`), and attests them.
 
 - **Not on the internet:** the container listens on `127.0.0.1` only; reach it through
   Tailscale or your own reverse proxy with HTTPS.
-- **Locked-down container:** it drops every Linux capability and can't gain new ones.
+- **Locked-down container:** it runs as a normal user (it starts as root only to give the
+  data folder to that user, `backend/app/privileges_linux.go`), drops every Linux capability,
+  can't gain new ones, and its filesystem is read-only apart from its data.
 - **Sign-ins and new decisions are rate limited,** and the web app sends a Content Security Policy
   (`backend/app/headers.go`).
 - **Versioned releases** with a [changelog](CHANGELOG.md); the compose file follows the `2`
@@ -154,10 +156,14 @@ tags (and moves `:2` and `:latest`), and attests them.
   to unreleased work. Every image has a signed attestation of the commit that built it.
 - **Tested on every change** in [CI](.github/workflows/ci.yml), with Actions pinned to
   commit hashes and every push scanned for committed secrets (gitleaks).
+- **Security scans** on every pull request and every week: CodeQL, govulncheck on the
+  Go code, Grype on the web dependencies and the released image, dependency review and
+  gitleaks
+  ([security.yml](.github/workflows/security.yml)).
 - **No analytics or tracking.** The data stays in `pb_data` on your machine.
 
-Found a security problem? Please write to kalfasyan@pm.me rather than opening an issue
-([security policy](https://github.com/selfhostit/.github/blob/main/SECURITY.md)). [Security and privacy](https://github.com/selfhostit/docs/blob/main/security.md) covers every selfhostit app:
+Found a security problem? Please report it privately, not in an issue: see [SECURITY.md](SECURITY.md)
+for how, and how quickly it gets fixed. [Security and privacy](https://github.com/selfhostit/docs/blob/main/security.md) covers every selfhostit app:
 what protects an install, what you are trusting and what is not done yet.
 
 ## Support
