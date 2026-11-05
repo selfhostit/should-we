@@ -156,8 +156,9 @@ tags (and moves `:2` and `:latest`), and attests them.
   to unreleased work. Every image has a signed attestation of the commit that built it.
 - **Tested on every change** in [CI](.github/workflows/ci.yml), with Actions pinned to
   commit hashes and every push scanned for committed secrets (gitleaks).
-- **Security scans** on every pull request and every week: CodeQL, Grype on the
-  dependencies and the released image, dependency review and gitleaks
+- **Security scans** on every pull request and every week: CodeQL, govulncheck on the
+  Go code, Grype on the web dependencies and the released image, dependency review and
+  gitleaks
   ([security.yml](.github/workflows/security.yml)).
 - **No analytics or tracking.** The data stays in `pb_data` on your machine.
 
