@@ -4,7 +4,7 @@
 
 <p align="center"><em>Pick one option together.</em></p>
 
-<p align="center"><a href="https://buymeacoffee.com/kalfasyan"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee"></a></p>
+<p align="center"><a href="https://scorecard.dev/viewer/?uri=github.com/selfhostit/should-we"><img src="https://api.scorecard.dev/projects/github.com/selfhostit/should-we/badge" alt="OpenSSF Scorecard"></a> <a href="https://buymeacoffee.com/kalfasyan"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee"></a></p>
 
 <p align="center"><img src="docs/screenshots/tour.png" alt="should-we on a phone: start a decision, share the link, say what matters, rate the options, see one ranking"></p>
 
@@ -103,6 +103,8 @@ Images: `:2` follows the newest 2.x release, `:2.1.0` is that exact release and 
 follows `main`. Every image has a signed attestation of the workflow and commit that built
 it; check one with the [GitHub CLI](https://cli.github.com):
 `gh attestation verify oci://ghcr.io/selfhostit/should-we:2 --repo selfhostit/should-we`.
+It also carries a software bill of materials (SBOM), the list of every package inside it:
+`docker buildx imagetools inspect ghcr.io/selfhostit/should-we:2 --format '{{ json .SBOM }}'`.
 
 ### Backups
 
