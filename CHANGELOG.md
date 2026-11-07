@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Every published image carries a software bill of materials (SBOM), and an OpenSSF
+  Scorecard run checks the repository's security practices every week. Dependabot now
+  also keeps the Go, npm and Docker dependencies up to date.
 - Nightly backups into `pb_data/backups`, keeping the last 7, like the other apps.
 - golang.org/x/net 0.62.0, which fixes GO-2026-6860, with the golang.org/x modules it needs.
 - Runs as a normal user (1000:1000, or `PUID`/`PGID`): it starts as root only to give the
