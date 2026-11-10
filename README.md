@@ -26,7 +26,20 @@ Version 2 is a rebuild. The Python version is release
 
 ## Quickstart
 
-On any machine with Docker (a NAS, a mini PC, your laptop):
+On a NAS, a Raspberry Pi or any Linux machine with a terminal (or SSH):
+
+```sh
+curl -fsSL https://github.com/selfhostit/docs/releases/latest/download/install.sh | sh -s -- should-we
+```
+
+This is the installer for every selfhostit app, set to install only should-we; it needs no
+other app. It sets up Docker if it is missing, installs a pinned release and checks it
+against its SHA-256, picks a free port, and can give should-we an `https://` address with
+Tailscale. Step by step: [a Pi or Linux](https://github.com/selfhostit/docs/blob/main/linux.md),
+[a Synology](https://github.com/selfhostit/docs/blob/main/synology.md) or
+[another NAS](https://github.com/selfhostit/docs/blob/main/other-nas.md).
+
+Or, on any machine that already has Docker (a NAS, a mini PC, your laptop), by hand:
 
 ```sh
 mkdir -p should-we/pb_data && cd should-we
@@ -38,7 +51,7 @@ If port 8091 is taken ("port is already allocated"), put a free port in a
 `.env` file next to `docker-compose.yml`, for example `SHOULD_WE_PORT=8095`,
 and your time zone too (`TZ=Europe/Athens`; the default is Europe/Brussels).
 
-Open http://127.0.0.1:8091, type what you're deciding and what matters,
+Open the address the installer lists (or http://127.0.0.1:8091 on the machine itself), type what you're deciding and what matters,
 then tap **Share** and send the link. Everyone picks a name, taps how much
 each point matters, and rates the options. **Results** shows the ranking.
 
