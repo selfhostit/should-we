@@ -4,7 +4,7 @@
 
 <p align="center"><em>Pick one option together.</em></p>
 
-<p align="center"><a href="https://scorecard.dev/viewer/?uri=github.com/selfhostit/should-we"><img src="https://api.scorecard.dev/projects/github.com/selfhostit/should-we/badge" alt="OpenSSF Scorecard"></a> <a href="https://buymeacoffee.com/kalfasyan"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee"></a></p>
+<p align="center"><a href="https://github.com/selfhostit/should-we/actions/workflows/ci.yml"><img src="https://github.com/selfhostit/should-we/actions/workflows/ci.yml/badge.svg" alt="CI"></a> <a href="https://github.com/selfhostit/should-we/releases/latest"><img src="https://img.shields.io/github/v/release/selfhostit/should-we" alt="Release"></a> <a href="https://scorecard.dev/viewer/?uri=github.com/selfhostit/should-we"><img src="https://api.scorecard.dev/projects/github.com/selfhostit/should-we/badge" alt="OpenSSF Scorecard"></a> <a href="LICENSE"><img src="https://img.shields.io/github/license/selfhostit/should-we" alt="License: MIT"></a> <a href="https://github.com/orgs/selfhostit/packages/container/package/should-we"><img src="https://img.shields.io/badge/image-ghcr.io%2Fselfhostit%2Fshould--we-2496ED?logo=docker&logoColor=white" alt="Image"></a> <a href="https://buymeacoffee.com/kalfasyan"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee"></a></p>
 
 <p align="center"><img src="docs/screenshots/tour.png" alt="should-we on a phone: start a decision, share the link, say what matters, rate the options, see one ranking"></p>
 
